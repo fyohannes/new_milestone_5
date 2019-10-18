@@ -1,0 +1,35 @@
+---
+title: "New_Milestone_5"
+author: "Feven Yohannes"
+date: "October 17, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(readxl)
+library(readr)
+library(dplyr)
+library(knitr)
+library(ggplot2)
+library(janitor)
+library(gt)
+library(tidyverse)
+library(httr)
+library(rvest)
+library(dplyr)
+un <- read_html("http://data.un.org/en/iso/et.html", skip=4, col_names=TRUE)
+tbls <- html_nodes(un, "table")
+un_tbl <- un %>%
+        html_nodes("table") %>%
+        .[3:4] %>%
+        html_table(fill = TRUE, header=TRUE)
+
+test <- un_tbl %>% map_df(bind_rows)
+
+world_bank <- read_csv("/Users/feven/Documents/Gov1005/Final Project/New_Milestone_5/data/API_ETH_DS2_en_csv_v2_205341.csv") 
+```
+
+In this project, I'm using data from the Worldbank and The UN that shows the social and economic changes that have been occurring in Ethiopia in the last 15 years. The UN data shows data from the last fifteen years, while the Worldbank has data from the last 40. I'm trying to uncover the relationship between the social and economic indicators. Some social indicators include primary school education for male and female children and life expectancy, while the economic indicators show GDP and workforce participation. One would think that the economic growth that Ethiopia has been experiencing would lead to a better living standard for the people of Ethiopia. But is that really the case? Does the economic boom benefit the people, or those in power? The latter part of the question might be a bit difficult to answer giving the scope, but it will be interesting to compare the changes over time.
+
+My data is not completley clean. Some issues that I have is combining two tibbles within a data frame, and for my other data set, the columns that contain values of these indicators aren't appearing. I have plans to work on this in the following week.
